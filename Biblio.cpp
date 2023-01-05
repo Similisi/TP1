@@ -27,3 +27,12 @@ void Biblio::affichageListeLivre(){
         std::cout << livre.getISBN() << " : " << livre.getTitre() << std::endl;
     }
 }
+
+void Biblio::EnleverDisponibilite(std::string ISBN){
+        int taille = _listeLivre.size();
+    for(int index = 0; index < taille;index ++){
+        if(std::to_string(_listeLivre.at(index).getISBN()) == ISBN){
+            _listeLivre.at(index).pasDispo();
+        }
+    }
+}

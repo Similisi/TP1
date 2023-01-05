@@ -10,6 +10,7 @@ public:
     void AjoutLivre(Livre livre);
     void AjoutLecteur(Lecteur lecteur);
     void AjoutEmprunt(Emprunt emprunt);
+    void EnleverDisponibilite(std::string ISBN);
     Livre findLivre(std::string ISBN);
     void affichageListeLivre();
     Biblio();

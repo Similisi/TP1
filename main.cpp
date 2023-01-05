@@ -53,11 +53,7 @@ int main(){
             std::cin >> id;
             std::cout << "date du jour ?"<< std::endl;
             std::cin >> datestr;
-            //Faire en sorte qu'il ne soit plus dispo
-
-
-
-            b.findLivre(ISBN).pasDispo();
+            b.EnleverDisponibilite(ISBN);
             date = Date(datestr);
             emprunt = Emprunt(date,ISBN,id);
             emprunt.AffichageData();
