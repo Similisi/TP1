@@ -11,7 +11,10 @@ public:
     void AjoutLecteur(Lecteur lecteur);
     void AjoutEmprunt(Emprunt emprunt);
     void EnleverDisponibilite(std::string ISBN);
+    void RemiseDeDisponibilite(std::string ISBN,std::string datestr);
     Livre findLivre(std::string ISBN);
+    void AjoutDateFinEmprunt(std::string ISBN,std::string date);
     void affichageListeLivre();
+    void AffichageListeEmprunt();
     Biblio();
 };

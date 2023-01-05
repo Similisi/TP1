@@ -5,6 +5,10 @@ class Emprunt{
         Emprunt();
         Emprunt(Date dateEmpr,std::string ISBN,std::string idLec);
         void FinEmprunt(Date dateFin);
+        int getISBN();
+        std::string getIDLecteur();
+        Date getdateEmprunt();
+        Date getdateFinEmprunt();
         void AffichageData();
     private:
         Date _dateEmprunt;

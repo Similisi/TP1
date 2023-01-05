@@ -1,11 +1,12 @@
 #include "Biblio.h"
+#include <cstdlib>
 int main(){
     Biblio b;
     while(true){
         int choix,choixaff = 0;
         std::string choixsubaff = "";
         std::cout << "Gestionnaire de Biblio" << std::endl;
-        std::cout << "Ajout utilisateur (1), Ajout livre (2), Ajout Emprunt (3), Afficher data (4)"<< std::endl;
+        std::cout << "Ajout utilisateur (1), Ajout livre (2), Ajout Emprunt (3),Enlever Emprunt (4), Afficher data (5)"<< std::endl;
         std::cin >> choix;
         std::string ISBN,id,nom,prenom,titre,auteur,genre,langue,datestr = "";
         Lecteur lecteur;
@@ -15,6 +16,7 @@ int main(){
         switch (choix)
         {
         case 1:
+            std::system("clear");
             std::cout << "un id ?"<< std::endl;
             std::cin >> id;
             std::cout << "un nom ?"<< std::endl;
@@ -28,6 +30,7 @@ int main(){
             std::cout << std::endl;
             break;
         case 2:
+            std::system("clear");
             std::cout << "un titre ?"<< std::endl;
             std::cin >> titre;
             std::cout << "un auteur ?"<< std::endl;
@@ -47,6 +50,7 @@ int main(){
             std::cout << std::endl;
             break;
         case 3:
+            std::system("clear");
             std::cout << "ISBN du livre ?"<< std::endl;
             std::cin >> ISBN;
             std::cout << "id du Lecteur ?"<< std::endl;
@@ -61,7 +65,18 @@ int main(){
             std::cout << std::endl;
             break;
         case 4:
-
+            std::system("clear");
+            b.AffichageListeEmprunt();
+            std::cout << "ISBN du livre ?"<< std::endl;
+            std::cin >> ISBN;
+            std::cout << "date du jour ?"<< std::endl;
+            std::cin >> datestr;
+            b.RemiseDeDisponibilite(ISBN,datestr);
+            b.AffichageListeEmprunt();
+            std::cout << std::endl;
+            break;
+        case 5:
+            std::system("clear");
             std::cout << "livre(1) ? lecteur(2) ?"<< std::endl;
             std::cin >> choixaff;
             switch (choixaff)
@@ -81,7 +96,7 @@ int main(){
             }
             break;
         default:
-            std::cout << "valeur fausse" << std::endl;
+            std::cout << "valeur fausse"<< std::endl;
             break;
         }
         //Date d("1/01/1943");

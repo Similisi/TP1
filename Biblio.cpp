@@ -28,11 +28,41 @@ void Biblio::affichageListeLivre(){
     }
 }
 
+void Biblio::AffichageListeEmprunt(){
+    for(Emprunt emprunt : _listeEmprunt){
+        std::cout << emprunt.getISBN() << " : " << emprunt.getIDLecteur() << " date d'emprunt : " << emprunt.getdateEmprunt().affichageDate();
+        if(emprunt.getdateFinEmprunt().affichageDate() != "1/1/0"){
+            std::cout << " date fin d'emprunt : " << emprunt.getdateFinEmprunt().affichageDate()<< std::endl;
+        }else{
+            std::cout << std::endl;
+        }
+    }
+}
+
 void Biblio::EnleverDisponibilite(std::string ISBN){
-        int taille = _listeLivre.size();
+    int taille = _listeLivre.size();
     for(int index = 0; index < taille;index ++){
         if(std::to_string(_listeLivre.at(index).getISBN()) == ISBN){
             _listeLivre.at(index).pasDispo();
+        }
+    }
+}
+
+void Biblio::RemiseDeDisponibilite(std::string ISBN,std::string date){
+    int taille = _listeLivre.size();
+    for(int index = 0; index < taille;index ++){
+        if(std::to_string(_listeLivre.at(index).getISBN()) == ISBN){
+            _listeLivre.at(index).Dispo();
+        }
+    }
+    AjoutDateFinEmprunt(ISBN,date);
+}
+
+void Biblio::AjoutDateFinEmprunt(std::string ISBN,std::string date){
+    for(Emprunt emprunt : _listeEmprunt){
+        if(std::to_string(emprunt.getISBN()) == ISBN){
+            Date d(date);
+            emprunt.FinEmprunt(date);
         }
     }
 }

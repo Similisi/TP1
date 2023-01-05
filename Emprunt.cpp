@@ -13,3 +13,17 @@ void Emprunt::AffichageData(){
     std::cout << _ISBN << std::endl;
     std::cout << _idLect << std::endl;
 }
+
+int Emprunt::getISBN(){
+    return _ISBN;
+}
+std::string Emprunt::getIDLecteur(){
+    return _idLect;
+}
+
+Date Emprunt::getdateEmprunt(){
+    return _dateEmprunt;
+}
+Date Emprunt::getdateFinEmprunt(){
+    return _dateFinEmprunt;
+}
