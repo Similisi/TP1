@@ -91,12 +91,15 @@ void Biblio::AjoutDateFinEmprunt(std::string ISBN,std::string date){
     }
 }
 
-void Biblio::LivresAuteur(std::string auteur){
+std::vector<Livre> Biblio::getListLivre(){
+    return _listeLivre;
+}
+
+void Biblio::LivresAuteur(Auteur auteur){
     int taille = _listeLivre.size();
     for(int index = 0; index < taille;index ++){
-        if(std::to_string(_listeLivre.at(index).getAuteur()) == auteur){
+        if(_listeLivre.at(index).getAuteur().toString() == auteur.toString()){
             std::cout << _listeLivre.at(index).getTitre() << std::endl;
         }
     }
-
 }

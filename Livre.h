@@ -22,8 +22,8 @@ public:
     void pasDispo();
     void Dispo();
     bool getDispo();
-    int getISBN();
-    std::string getAuteur();
+    std::string getISBN();
+    Auteur getAuteur();
     std::string getTitre();
     std::string operator<< (const Livre& livre) const; 
 };

@@ -23,7 +23,7 @@ public:
     void AffichageListeEmprunt();
     bool verifDispo(std::string ISBN);
     std::vector<Livre> getListLivre();
-    void LivresAuteur(std::string auteur);
+    void LivresAuteur(Auteur auteur);
     Biblio();
 };
 #endif

@@ -31,7 +31,7 @@ std::string Livre::getTitre(){
     return _titre;
 }
 
-std::string Livre::getAuteur(){
+Auteur Livre::getAuteur(){
     return _auteur;
 }
 
