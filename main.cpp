@@ -60,6 +60,12 @@ int main(){
     std::cout << visu << std::endl;
      std::cout << "Afficher livre auteur" << std::endl;
     b.LivresAuteur(a1);
+    std::cout << "Pourcentage avec 2 livre sur 10 emprunté" << std::endl;
+    emprunt = Emprunt(d,l1.getISBN(),lec2.getId());
+    emprunt2 = Emprunt(d,l2.getISBN(),lec2.getId());
+    b.AjoutEmprunt(emprunt);
+    b.AjoutEmprunt(emprunt2);
+    b.CalculLivreEmprunte();
     while(true){
     }
 }

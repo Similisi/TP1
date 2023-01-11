@@ -103,3 +103,17 @@ void Biblio::LivresAuteur(Auteur auteur){
         }
     }
 }
+
+void Biblio::CalculLivreEmprunte(){
+    int totalLivre = _listeLivre.size();
+    int nblivreEmprunte = 0;
+    std::string resultat = "";
+    for(Livre livre : _listeLivre){
+        if(!livre.getDispo()){
+            resultat += livre.getTitre()+"\n";
+            nblivreEmprunte++;
+        }
+    }
+    std::cout << resultat << std::endl;
+    std::cout << "il y a " << (nblivreEmprunte*100) / totalLivre << "% des livres emprunte."<< std::endl;
+}

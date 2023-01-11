@@ -24,6 +24,7 @@ public:
     bool verifDispo(std::string ISBN);
     std::vector<Livre> getListLivre();
     void LivresAuteur(Auteur auteur);
+    void CalculLivreEmprunte();
     Biblio();
 };
 #endif
