@@ -31,6 +31,10 @@ std::string Livre::getTitre(){
     return _titre;
 }
 
+std::string Livre::getAuteur(){
+    return _auteur;
+}
+
 
 std::string Livre::getISBN(){
     return _ISBN;

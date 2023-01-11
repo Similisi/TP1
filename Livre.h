@@ -13,7 +13,6 @@ private:
     std::string _genre;
     bool _estDispo;
     Date _datepub;
-    
     std::vector<int> _listeEmprunt;
     /* data */
 public:
@@ -23,7 +22,8 @@ public:
     void pasDispo();
     void Dispo();
     bool getDispo();
-    std::string getISBN();
+    int getISBN();
+    std::string getAuteur();
     std::string getTitre();
     std::string operator<< (const Livre& livre) const; 
 };
