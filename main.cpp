@@ -6,7 +6,7 @@ int main(){
         int choix,choixaff = 0;
         std::string choixsubaff = "";
         std::cout << "Gestionnaire de Biblio" << std::endl;
-        std::cout << "Ajout utilisateur (1), Ajout livre (2), Ajout Emprunt (3),Enlever Emprunt (4), Afficher data (5)"<< std::endl;
+        std::cout << "Ajout utilisateur (1), Ajout livre (2), Ajout Emprunt (3),Enlever Emprunt (4), Afficher data (5), Afficher les livres d'un auteur(6)"<< std::endl;
         std::cin >> choix;
         std::string ISBN,id,nom,prenom,titre,auteur,genre,langue,datestr = "";
         Lecteur lecteur;
@@ -95,6 +95,12 @@ int main(){
                 break;
             }
             break;
+        case 6:
+           std::system("clear");
+           std::cout << "Auteur ?" << std::endl ;
+           std::cin >> auteur ;
+           b.LivresAuteur(auteur);
+           break;
         default:
             std::cout << "valeur fausse"<< std::endl;
             break;

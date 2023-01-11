@@ -16,5 +16,6 @@ public:
     void AjoutDateFinEmprunt(std::string ISBN,std::string date);
     void affichageListeLivre();
     void AffichageListeEmprunt();
+    void LivresAuteur(std::string auteur);
     Biblio();
 };

@@ -21,5 +21,6 @@ public:
     void pasDispo();
     void Dispo();
     int getISBN();
+    std::string getAuteur();
     std::string getTitre();
 };
