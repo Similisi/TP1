@@ -1,14 +1,11 @@
 #include"Livre.h"
 Livre::Livre(){}
-Livre::Livre(std::string titre, std::string auteur,std::string langue, std::string genre,Date d):_titre(titre),_auteur(auteur),_langue(langue),_genre(genre),_estDispo(true),_datepub(d)
-{
-    srand(time(NULL));
-    _ISBN = rand()% 100000000;
-}
+Livre::Livre(std::string isbn,std::string titre, Auteur auteur,std::string langue, std::string genre,Date d):_ISBN(isbn),_titre(titre),_auteur(auteur),_langue(langue),_genre(genre),_estDispo(true),_datepub(d)
+{}
 void Livre::affichageData(){
     std::cout << "ISBN : " << _ISBN <<std::endl;
     std::cout << "titre : " << _titre <<std::endl;
-    std::cout << "auteur : " << _auteur <<std::endl;
+    std::cout << "auteur : " << _auteur.toString() <<std::endl;
     std::cout << "langue : " << _langue <<std::endl;
     std::cout << "date : " << _datepub.affichageDate() <<std::endl;
     if(_estDispo){
@@ -25,12 +22,32 @@ void Livre::Dispo(){
     _estDispo = true;
 }
 
+bool Livre::getDispo(){
+    return _estDispo;
+}
+
 
 std::string Livre::getTitre(){
     return _titre;
 }
 
 
-int Livre::getISBN(){
+std::string Livre::getISBN(){
     return _ISBN;
+}
+
+std::string Livre::operator<< (const Livre& livre) const { 
+    std::string resultat;
+    
+    resultat = "Livre :\n";
+    resultat += "ISBN : " + livre._ISBN+ "\n";
+    resultat += "nom : " + livre._titre + "\n";
+    resultat += "nom : " + livre._genre + "\n";
+    resultat += "nom : " + livre._langue + "\n";
+    if(livre._estDispo){
+        resultat +="Le livre est dispo \n";
+    }else{
+        resultat +="Le livre n'est pas dispo \n";
+    }
+    return resultat;
 }

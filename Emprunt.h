@@ -1,3 +1,5 @@
+#ifndef EMPRUNT_H
+#define EMPRUNT_H
 #include <string>
 #include "Date.h"
 class Emprunt{
@@ -16,3 +18,4 @@ class Emprunt{
         int _ISBN;
         std::string _idLect;
 };
+#endif

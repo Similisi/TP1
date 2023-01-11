@@ -8,14 +8,38 @@ void Biblio::AjoutLecteur(Lecteur lecteur){
     _listeLecteur.push_back(lecteur);
 }
 void Biblio::AjoutEmprunt(Emprunt emprunt){
-    _listeEmprunt.push_back(emprunt);
+    if(verifDispo(std::to_string(emprunt.getISBN()))){
+        _listeEmprunt.push_back(emprunt);
+        EnleverDisponibilite(std::to_string(emprunt.getISBN()));
+        std::cout << "Emprunt effectué" << std::endl;
+    }else{
+        std::cout << "Livre non disponnible" << std::endl;
+    }
 }
+
+bool Biblio::verifDispo(std::string ISBN){
+    bool res;
+    int taille = _listeLivre.size();
+    for(int index = 0; index < taille;index ++){
+        if(_listeLivre.at(index).getISBN() == ISBN){
+            res = _listeLivre.at(index).getDispo();
+        }
+    }
+    return res;
+
+}
+
+void Biblio::AjoutAuteur(Auteur auteur){
+    _listeAuteur.push_back(auteur);
+}
+
+
 
 Livre Biblio::findLivre(std::string ISBN){
     Livre livre;
     int taille = _listeLivre.size();
     for(int index = 0; index < taille;index ++){
-        if(std::to_string(_listeLivre.at(index).getISBN()) == ISBN){
+        if(_listeLivre.at(index).getISBN() == ISBN){
             livre = _listeLivre.at(index);
         }
     }
@@ -42,7 +66,7 @@ void Biblio::AffichageListeEmprunt(){
 void Biblio::EnleverDisponibilite(std::string ISBN){
     int taille = _listeLivre.size();
     for(int index = 0; index < taille;index ++){
-        if(std::to_string(_listeLivre.at(index).getISBN()) == ISBN){
+        if(_listeLivre.at(index).getISBN() == ISBN){
             _listeLivre.at(index).pasDispo();
         }
     }
@@ -51,7 +75,7 @@ void Biblio::EnleverDisponibilite(std::string ISBN){
 void Biblio::RemiseDeDisponibilite(std::string ISBN,std::string date){
     int taille = _listeLivre.size();
     for(int index = 0; index < taille;index ++){
-        if(std::to_string(_listeLivre.at(index).getISBN()) == ISBN){
+        if(_listeLivre.at(index).getISBN() == ISBN){
             _listeLivre.at(index).Dispo();
         }
     }
@@ -65,4 +89,8 @@ void Biblio::AjoutDateFinEmprunt(std::string ISBN,std::string date){
             emprunt.FinEmprunt(date);
         }
     }
+}
+
+std::vector<Livre> Biblio::getListLivre(){
+    return _listeLivre;
 }

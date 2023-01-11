@@ -1,3 +1,5 @@
+#ifndef DATE_H
+#define DATE_H
 #include<string>
 #include<vector>
 #include<iostream>
@@ -13,3 +15,4 @@ private:
     int _mois;
     int _annee;
 };
+#endif

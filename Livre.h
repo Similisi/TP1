@@ -1,25 +1,30 @@
+#ifndef LIVRE_H
+#define LIVRE_H
 #include<vector>
-#include "Emprunt.h"
+#include "Auteur.h"
 #include <stdlib.h>
-#include <time.h>
 class Livre
 {
 private:
+    std::string _ISBN;
     std::string _titre;
-    std::string _auteur;
+    Auteur _auteur;
     std::string _langue;
     std::string _genre;
     bool _estDispo;
     Date _datepub;
-    int _ISBN;
+    
     std::vector<int> _listeEmprunt;
     /* data */
 public:
     void affichageData();
     Livre();
-    Livre(std::string titre, std::string auteur,std::string langue, std::string genre,Date d);
+    Livre(std::string isbn,std::string titre, Auteur auteur,std::string langue, std::string genre,Date d);
     void pasDispo();
     void Dispo();
-    int getISBN();
+    bool getDispo();
+    std::string getISBN();
     std::string getTitre();
+    std::string operator<< (const Livre& livre) const; 
 };
+#endif
