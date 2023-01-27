@@ -11,6 +11,8 @@ class Lecteur{
         std::string getId();
         std::string getNom();
         std::string getPrenom();
+        std::vector<int> getListISBN();
+        void addEmprunt(int ISBN);
         std::string operator<< (const Lecteur& lecteur) const; 
     private:
         std::string _id;

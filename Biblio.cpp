@@ -1,22 +1,36 @@
 #include "Biblio.h"
 
 Biblio::Biblio(){}
+
+//retourne la liste de lecteur
+std::vector<Lecteur> Biblio::getListLecteur(){
+    return _listeLecteur;
+}
+//ajouter un livre a la liste de livre
 void Biblio::AjoutLivre(Livre livre){
     _listeLivre.push_back(livre);
 }
+//ajouter un lecteur a la liste de lecteur
 void Biblio::AjoutLecteur(Lecteur lecteur){
     _listeLecteur.push_back(lecteur);
 }
-void Biblio::AjoutEmprunt(Emprunt emprunt){
+//ajouter un emprunt a la liste d'emprunt en ajoutant aussi l'isbn du livre emprunté chez le lecteur
+void Biblio::AjoutEmprunt(Emprunt emprunt,Lecteur &lecteur){
     if(verifDispo(std::to_string(emprunt.getISBN()))){
         _listeEmprunt.push_back(emprunt);
         EnleverDisponibilite(std::to_string(emprunt.getISBN()));
+        for(long unsigned int index =0; index < _listeLecteur.size(); index ++){
+            if(_listeLecteur.at(index).getId() == lecteur.getId()){
+                _listeLecteur.at(index).addEmprunt(emprunt.getISBN());
+            }
+        }
+        
         std::cout << "Emprunt effectué" << std::endl;
     }else{
         std::cout << "Livre non disponnible" << std::endl;
     }
 }
-
+//méthode de verification des disponibilité coté bibliothèque
 bool Biblio::verifDispo(std::string ISBN){
     bool res;
     int taille = _listeLivre.size();
@@ -28,13 +42,13 @@ bool Biblio::verifDispo(std::string ISBN){
     return res;
 
 }
-
+//méthode d'ajout d'auteur
 void Biblio::AjoutAuteur(Auteur auteur){
     _listeAuteur.push_back(auteur);
 }
 
 
-
+//méthode de recherche des livres
 Livre Biblio::findLivre(std::string ISBN){
     Livre livre;
     int taille = _listeLivre.size();
@@ -45,13 +59,13 @@ Livre Biblio::findLivre(std::string ISBN){
     }
     return livre;
 }
-
+//methode pour afficher les livre 1 a 1
 void Biblio::affichageListeLivre(){
     for(Livre livre : _listeLivre){
         std::cout << livre.getISBN() << " : " << livre.getTitre() << std::endl;
     }
 }
-
+//methode pour afficher les emprunt 1 a 1
 void Biblio::AffichageListeEmprunt(){
     for(Emprunt emprunt : _listeEmprunt){
         std::cout << emprunt.getISBN() << " : " << emprunt.getIDLecteur() << " date d'emprunt : " << emprunt.getdateEmprunt().affichageDate();
@@ -62,7 +76,7 @@ void Biblio::AffichageListeEmprunt(){
         }
     }
 }
-
+//Méthode pour enlever une disponibilité d'un livre en fonction de l'isbn
 void Biblio::EnleverDisponibilite(std::string ISBN){
     int taille = _listeLivre.size();
     for(int index = 0; index < taille;index ++){
@@ -71,7 +85,7 @@ void Biblio::EnleverDisponibilite(std::string ISBN){
         }
     }
 }
-
+//Méthode pour remettre une disponibilité d'un livre en fonction de l'isbn et d'une date de remise 
 void Biblio::RemiseDeDisponibilite(std::string ISBN,std::string date){
     int taille = _listeLivre.size();
     for(int index = 0; index < taille;index ++){
@@ -81,7 +95,7 @@ void Biblio::RemiseDeDisponibilite(std::string ISBN,std::string date){
     }
     AjoutDateFinEmprunt(ISBN,date);
 }
-
+//Méthode pour ajouter une date de fin d'emprunt
 void Biblio::AjoutDateFinEmprunt(std::string ISBN,std::string date){
     for(Emprunt emprunt : _listeEmprunt){
         if(std::to_string(emprunt.getISBN()) == ISBN){
@@ -90,11 +104,11 @@ void Biblio::AjoutDateFinEmprunt(std::string ISBN,std::string date){
         }
     }
 }
-
+//retourne la liste de livre
 std::vector<Livre> Biblio::getListLivre(){
     return _listeLivre;
 }
-
+//méthode permettant de chercher tous les livres d'un auteur.
 void Biblio::LivresAuteur(Auteur auteur){
     int taille = _listeLivre.size();
     for(int index = 0; index < taille;index ++){
@@ -103,7 +117,7 @@ void Biblio::LivresAuteur(Auteur auteur){
         }
     }
 }
-
+//méthode permettant de chercher tous les livres empruntés et de calculer le pourcentage de livres empruntés
 void Biblio::CalculLivreEmprunte(){
     int totalLivre = _listeLivre.size();
     int nblivreEmprunte = 0;
@@ -117,3 +131,31 @@ void Biblio::CalculLivreEmprunte(){
     std::cout << resultat << std::endl;
     std::cout << "il y a " << (nblivreEmprunte*100) / totalLivre << "% des livres emprunte."<< std::endl;
 }
+//méthode permettant de chercher tous les livres empruntés par un lecteur.
+void Biblio::RechercheLivreEmpruntes(Lecteur lect){
+    for(Emprunt emprunt : _listeEmprunt){
+        if(lect.getId() == emprunt.getIDLecteur()){
+            for(Livre livre : _listeLivre){
+                if(livre.getISBN() == std::to_string(emprunt.getISBN())){
+                    std::cout << livre.getTitre() << std::endl;
+                }
+            }
+        }
+    }
+}
+//méthode permettant d'établir le classement des lecteurs en fonction du nombre de livres empruntés
+void Biblio::ClassementLecteur(){
+    std::vector<std::pair<std::string, int>> resultat;
+    //init du tableau resultat
+    for(Lecteur lecteur: _listeLecteur){
+        std::pair<std::string, int> lec(lecteur.getNom(),lecteur.getListISBN().size());
+        resultat.push_back(lec);
+    }
+    std::sort(resultat.begin(), resultat.end(),[](std::pair<std::string, int> a, std::pair<std::string, int> b){
+        return a.second > b.second;
+    });
+    for(std::pair<std::string, int> lecteur: resultat){
+        std::cout<< lecteur.first << " " <<lecteur.second<<std::endl;
+    }
+}
+

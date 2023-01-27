@@ -50,22 +50,34 @@ int main(){
     std::cout << visu << std::endl;
     Emprunt emprunt(d,l2.getISBN(),lec1.getId());
     Emprunt emprunt2(d,l2.getISBN(),lec2.getId());
-    b.AjoutEmprunt(emprunt);
+    Emprunt emprunt3(d,l9.getISBN(),lec1.getId());
+    b.AjoutEmprunt(emprunt,b.getListLecteur().at(0));
+    b.AjoutEmprunt(emprunt3,b.getListLecteur().at(0));
     visu = b.getListLivre()[1]<<b.getListLivre()[1] ;
     std::cout << visu << std::endl;
-    b.AjoutEmprunt(emprunt2);
+    b.AjoutEmprunt(emprunt2,b.getListLecteur().at(1));
     std::cout << "remise disponibilité"<<std::endl;
     b.RemiseDeDisponibilite(l2.getISBN(),d.affichageDate());
     visu = b.getListLivre()[1]<<b.getListLivre()[1] ;
     std::cout << visu << std::endl;
      std::cout << "Afficher livre auteur" << std::endl;
     b.LivresAuteur(a1);
-    std::cout << "Pourcentage avec 2 livre sur 10 emprunté" << std::endl;
+    std::cout << "Pourcentage avec 3 livre sur 10 emprunté" << std::endl;
     emprunt = Emprunt(d,l1.getISBN(),lec2.getId());
     emprunt2 = Emprunt(d,l2.getISBN(),lec2.getId());
-    b.AjoutEmprunt(emprunt);
-    b.AjoutEmprunt(emprunt2);
+    b.AjoutEmprunt(emprunt,b.getListLecteur().at(1));
+    b.AjoutEmprunt(emprunt2,b.getListLecteur().at(1));
     b.CalculLivreEmprunte();
+    std::cout << "Chercher les livres empruntés par un lecteur (lecteur 1)" << std::endl;
+    b.RechercheLivreEmpruntes(lec1);
+    std::cout << "Classement des lecteurs" << std::endl;
+    Emprunt emprunt4(d,l5.getISBN(),lec3.getId());
+    Emprunt emprunt5(d,l6.getISBN(),lec3.getId());
+    Emprunt emprunt6(d,l7.getISBN(),lec3.getId());
+    b.AjoutEmprunt(emprunt4,b.getListLecteur().at(2));
+    b.AjoutEmprunt(emprunt5,b.getListLecteur().at(2));
+    b.AjoutEmprunt(emprunt6,b.getListLecteur().at(2));
+    b.ClassementLecteur();
     while(true){
     }
 }

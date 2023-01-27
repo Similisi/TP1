@@ -2,6 +2,7 @@
 
 Date::Date():_jour(1),_mois(1),_annee(0){}
 Date::Date(int j,int m, int a):_jour(j),_mois(m),_annee(a){}
+//constructeur de date avec un string en format JJ/MM/AAAA
 Date::Date(std::string date){
     std::vector<std::string> tableauDate;
     char delimiteur = '/';
@@ -10,7 +11,7 @@ Date::Date(std::string date){
     _mois = std::stoi(tableauDate[1],nullptr);
     _annee = std::stoi(tableauDate[2],nullptr);
 }
-
+//méthode pour découper une date donnée en string sous le format JJ/MM/AAAA
 void Date::decoupageString(std::string const &str, const char delim, std::vector<std::string> &out)
 {
     size_t start;
@@ -22,7 +23,7 @@ void Date::decoupageString(std::string const &str, const char delim, std::vector
         out.push_back(str.substr(start, end - start));
     }
 }
-
+//Afficher la date
 std::string Date::affichageDate(){
     return std::to_string(_jour)+"/"+std::to_string(_mois)+"/"+std::to_string(_annee);
 }

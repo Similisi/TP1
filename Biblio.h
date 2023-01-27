@@ -3,6 +3,7 @@
 #include "Livre.h"
 #include "Lecteur.h"
 #include "Emprunt.h"
+#include <algorithm> 
 class Biblio
 {
 private:
@@ -11,9 +12,10 @@ private:
     std::vector<Emprunt> _listeEmprunt;
     std::vector<Auteur> _listeAuteur;
 public:
+    std::vector<Lecteur> getListLecteur();
     void AjoutLivre(Livre livre);
     void AjoutLecteur(Lecteur lecteur);
-    void AjoutEmprunt(Emprunt emprunt);
+    void AjoutEmprunt(Emprunt emprunt,Lecteur &lecteur);
     void AjoutAuteur(Auteur auteur);
     void EnleverDisponibilite(std::string ISBN);
     void RemiseDeDisponibilite(std::string ISBN,std::string datestr);
@@ -25,6 +27,8 @@ public:
     std::vector<Livre> getListLivre();
     void LivresAuteur(Auteur auteur);
     void CalculLivreEmprunte();
+    void RechercheLivreEmpruntes(Lecteur lect);
+    void ClassementLecteur();
     Biblio();
 };
 #endif
